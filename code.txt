@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Coding Canvas</title>
+</head>
+<body>
+<canvas id="mycanvas" width="350" height="200" style="border:1px solid #000000; margin:20px;">
+    Oops! This browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script>
+var canvas=document.getElementById('mycanvas');
+var context=canvas.getContext('2d');
+
+function drawRec(x, y){
+    context.beginPath();
+    context.rect(x, y, 80, 50);
+    context.stroke();
+}
+
+// get x, y coordinates of double clicking
+function getPosition(e) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    };
+}
+
+// add event listener on double click to canvas
+canvas.addEventListener('dblclick', function(e) {
+    var position = getPosition(e);
+    drawRec(position.x, position.y);
+});
+</script>
+
+ </body>
+</html>
+----------------------------------------------
+
+$(document).ready(function () {
+    var context = $('#canvas')[0].getContext('2d');
+
+    $('#canvas').dblclick(function (e) {
+        //get canvas offset
+        var offset = $(this).offset();
+
+        // create the rectangle
+//note only one image being put in here so no need to loop later
+        var images = [];
+        images.push({
+            //use mouse x and y position and offset
+            x: e.clientX - offset.left,
+            y: e.clientY - offset.top,
+            width: 25,
+            height: 25,
+            color: "gold"
+        });
+
+        // draw rectangle
+        context.globalAlpha = 1.00;
+//        for (var i = 0; i < images.length; i++) {
+            //var img = images[i];
+            var img = images[0];
+            context.beginPath();
+            context.rect(img.x, img.y, img.width, img.height);
+            context.fillStyle = img.color;
+            context.fill();
+            context.stroke();
+//        }
+    });
+});
+https://www.tanishq.co.in/pgcallback?storeId=10151&wcsPaymentId=1499193
